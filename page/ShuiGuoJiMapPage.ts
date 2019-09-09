@@ -37,7 +37,7 @@ module gameshuiguoji.page {
             3, 10, 20, 50
         ];
 
-        private _viewUI: ui.game_ui.shuiguoji.ShuiGuoJiUI;
+        private _viewUI: ui.nqp.game_ui.shuiguoji.ShuiGuoJiUI;
         private _sgjStory: ShuiguojiStory;
         private _sgjMapInfo: ShuiguojiMapInfo;
 
@@ -122,7 +122,7 @@ module gameshuiguoji.page {
             this._allBetNum = [];
             this._allBetAni = [];
             for (let i: number = 0; i < FRIUT_ALL_NUM; i++) {
-                let uibet: ui.game_ui.shuiguoji.component.BeiShuUI = this._viewUI["ui_bet_" + (i + 1)];
+                let uibet: ui.nqp.game_ui.shuiguoji.component.BeiShuUI = this._viewUI["ui_bet_" + (i + 1)];
                 this._allBetClipBg[i] = new ShuiguojiClip(ShuiguojiClip.SGJ_BET_SCORE);
                 uibet.clip_bet.parent.addChild(this._allBetClipBg[i]);
                 this._allBetClipBg[i].setText("8888", true);
