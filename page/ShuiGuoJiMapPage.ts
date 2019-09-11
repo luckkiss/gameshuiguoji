@@ -395,7 +395,7 @@ module gameshuiguoji.page {
                         TongyongPageDef.ins.alertRecharge(StringU.substitute("游戏中禁止退出，请先打完这局哦~"), () => {
                         }, () => {
 
-                        }, true, PathGameTongyong.ui_tongyong_general + "btn_qd.png");
+                        }, true, TongyongPageDef.TIPS_SKIN_STR["qd"]);
                         return;
                     }
                     this._game.sceneObjectMgr.off(ShuiguojiMapInfo.EVENT_BATTLE_CHECK, this, this.onUpdateBattle);
