@@ -113,8 +113,9 @@ module gameshuiguoji.page {
             this._playerGoldClip = new ShuiguojiClip(ShuiguojiClip.SGJ_GOLD);
             this._viewUI.clip_gold.visible = false;
             this._viewUI.clip_gold.parent.addChild(this._playerGoldClip);
+            this._playerGoldClip.scale(0.8, 0.8);
             this._playerGoldClip.x = this._viewUI.clip_gold.x;
-            this._playerGoldClip.y = this._viewUI.clip_gold.y;
+            this._playerGoldClip.y = this._viewUI.clip_gold.y + 2;
 
             this._allBetClip = [];
             this._allBetClipBg = [];
