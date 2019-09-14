@@ -25,7 +25,7 @@ module gameshuiguoji {
                 clipWidth: 18.27,
                 clipHeight: 23,
                 clipX: 11,
-                space: 0,
+                space: -2,
             };
             this.SGJ_PRIZE_GOLD = {
                 source: Path_game_shuiguoji.atlas_game_ui + "shuiguoji.atlas",

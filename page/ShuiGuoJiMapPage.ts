@@ -111,11 +111,11 @@ module gameshuiguoji.page {
 
             //玩家金币
             this._playerGoldClip = new ShuiguojiClip(ShuiguojiClip.SGJ_GOLD);
-            this._playerGoldClip.scale(0.7, 0.7);
             this._viewUI.clip_gold.visible = false;
             this._viewUI.clip_gold.parent.addChild(this._playerGoldClip);
-            this._playerGoldClip.x = this._viewUI.clip_gold.x - 2;
-            this._playerGoldClip.y = this._viewUI.clip_gold.y + 3;
+            this._playerGoldClip.scale(0.8, 0.8);
+            this._playerGoldClip.x = this._viewUI.clip_gold.x;
+            this._playerGoldClip.y = this._viewUI.clip_gold.y + 2;
 
             this._allBetClip = [];
             this._allBetClipBg = [];
