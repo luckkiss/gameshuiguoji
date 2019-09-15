@@ -3,7 +3,7 @@
 */
 module gameshuiguoji.page {
 	export class ShuiGuoJiPrizePage extends game.gui.base.Page {
-		private _viewUI: ui.game_ui.shuiguoji.ZhongJiangLUI;
+		private _viewUI: ui.nqp.game_ui.shuiguoji.ZhongJiangLUI;
 		private _goldClip: ShuiguojiClip;
 		constructor(v: Game, onOpenFunc?: Function, onCloseFunc?: Function) {
 			super(v, onOpenFunc, onCloseFunc);

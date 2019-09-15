@@ -37,7 +37,7 @@ module gameshuiguoji.page {
             3, 10, 20, 50
         ];
 
-        private _viewUI: ui.game_ui.shuiguoji.ShuiGuoJiUI;
+        private _viewUI: ui.nqp.game_ui.shuiguoji.ShuiGuoJiUI;
         private _sgjStory: ShuiguojiStory;
         private _sgjMapInfo: ShuiguojiMapInfo;
 
@@ -113,8 +113,9 @@ module gameshuiguoji.page {
             this._playerGoldClip = new ShuiguojiClip(ShuiguojiClip.SGJ_GOLD);
             this._viewUI.clip_gold.visible = false;
             this._viewUI.clip_gold.parent.addChild(this._playerGoldClip);
+            this._playerGoldClip.scale(0.8, 0.8);
             this._playerGoldClip.x = this._viewUI.clip_gold.x;
-            this._playerGoldClip.y = this._viewUI.clip_gold.y;
+            this._playerGoldClip.y = this._viewUI.clip_gold.y + 2;
 
             this._allBetClip = [];
             this._allBetClipBg = [];
@@ -122,7 +123,7 @@ module gameshuiguoji.page {
             this._allBetNum = [];
             this._allBetAni = [];
             for (let i: number = 0; i < FRIUT_ALL_NUM; i++) {
-                let uibet: ui.game_ui.shuiguoji.component.BeiShuUI = this._viewUI["ui_bet_" + (i + 1)];
+                let uibet: ui.nqp.game_ui.shuiguoji.component.BeiShuUI = this._viewUI["ui_bet_" + (i + 1)];
                 this._allBetClipBg[i] = new ShuiguojiClip(ShuiguojiClip.SGJ_BET_SCORE);
                 uibet.clip_bet.parent.addChild(this._allBetClipBg[i]);
                 this._allBetClipBg[i].setText("8888", true);
@@ -191,6 +192,7 @@ module gameshuiguoji.page {
                 this._testBtn.stateNum = 1;
                 // this._viewUI.getChildAt(0).addChild(this._testBtn);
             }
+            this._viewUI.btn_xl.left = this._game.isFullScreen ? 25 : 10;
         }
 
         // 页面打开时执行函数
@@ -263,6 +265,16 @@ module gameshuiguoji.page {
 
             this._game.playMusic(Path_game_shuiguoji.music_shuiguoji + "sgj_BGM.mp3");
 
+        }
+
+        private _curDiffTime: number;
+        update(diff: number) {
+            if (!this._curDiffTime || this._curDiffTime < 0) {
+                this._viewUI.btn_chong.ani1.play(0, false);
+                this._curDiffTime = TongyongPageDef.CZ_PLAY_DIFF_TIME;
+            } else {
+                this._curDiffTime -= diff;
+            }
         }
 
         private onUpdateUnitOffline() {
@@ -395,7 +407,7 @@ module gameshuiguoji.page {
                         TongyongPageDef.ins.alertRecharge(StringU.substitute("游戏中禁止退出，请先打完这局哦~"), () => {
                         }, () => {
 
-                        }, true, PathGameTongyong.ui_tongyong_general + "btn_qd.png");
+                        }, true, TongyongPageDef.TIPS_SKIN_STR["qd"], TongyongPageDef.TIPS_SKIN_STR["title_ts"]);
                         return;
                     }
                     this._game.sceneObjectMgr.off(ShuiguojiMapInfo.EVENT_BATTLE_CHECK, this, this.onUpdateBattle);

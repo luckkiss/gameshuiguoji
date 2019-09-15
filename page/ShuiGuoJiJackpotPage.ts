@@ -29,7 +29,7 @@ module gameshuiguoji.page {
 			totalJD: 20
 		}
 	];
-	export class ShuiGuoJiJackpotPage extends ui.game_ui.shuiguoji.JiangCiUI {
+	export class ShuiGuoJiJackpotPage extends ui.nqp.game_ui.shuiguoji.JiangCiUI {
 		private _game: Game;
 		private _jackpotClip: ShuiguojiClip;
 		private _sgjMapInfo: ShuiguojiMapInfo;
@@ -180,7 +180,7 @@ module gameshuiguoji.page {
 			super.destroy();
 		}
 	}
-	class ListJiangCiItem extends ui.game_ui.shuiguoji.component.JiangCiMiZiUI {
+	class ListJiangCiItem extends ui.nqp.game_ui.shuiguoji.component.JiangCiMiZiUI {
 		private _game: Game;
 		private _data: any;//"ddz","niuniu","zjh"
 		setData(game: Game, data: any) {
