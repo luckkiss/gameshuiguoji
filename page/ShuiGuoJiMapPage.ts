@@ -192,6 +192,7 @@ module gameshuiguoji.page {
                 this._testBtn.stateNum = 1;
                 // this._viewUI.getChildAt(0).addChild(this._testBtn);
             }
+            this._viewUI.btn_xl.left = this._game.isFullScreen ? 25 : 10;
         }
 
         // 页面打开时执行函数
