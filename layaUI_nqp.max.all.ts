@@ -14,6 +14,20 @@ module ui.nqp.game_ui.shuiguoji.component {
 }
 
 module ui.nqp.game_ui.shuiguoji.component {
+    export class Effect_chongzhiUI extends View {
+		public ani1:Laya.FrameAnimation;
+
+        public static  uiView:any ={"type":"View","props":{"width":246,"height":94},"child":[{"type":"Box","props":{"y":0,"x":0},"child":[{"type":"Button","props":{"stateNum":1,"skin":"tongyong_ui/game_ui/tongyong/general/btn_chongzhi.png"}},{"type":"Box","props":{"y":0,"x":0,"blendMode":"lighter"},"child":[{"type":"Button","props":{"y":0,"x":12,"stateNum":1,"skin":"tongyong_ui/game_ui/tongyong/general/tu_chizhizz.png"}},{"type":"Image","props":{"x":79.16666666666666,"skin":"tongyong_ui/game_ui/tongyong/general/tu_czsg.png","renderType":"mask"},"compId":3}]}]}],"animations":[{"nodes":[{"target":3,"keyframes":{"x":[{"value":-173,"tweenMethod":"linearNone","tween":true,"target":3,"key":"x","index":0},{"value":183,"tweenMethod":"linearNone","tween":true,"target":3,"key":"x","index":40}]}}],"name":"ani1","id":1,"frameRate":24,"action":0}]};
+        constructor(){ super()}
+        createChildren():void {
+        
+            super.createChildren();
+            this.createView(ui.nqp.game_ui.shuiguoji.component.Effect_chongzhiUI.uiView);
+        }
+    }
+}
+
+module ui.nqp.game_ui.shuiguoji.component {
     export class GridEffUI extends View {
 		public ani1:Laya.FrameAnimation;
 		public ani2:Laya.FrameAnimation;
