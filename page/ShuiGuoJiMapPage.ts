@@ -242,7 +242,7 @@ module gameshuiguoji.page {
             this._game.sceneObjectMgr.on(SceneObjectMgr.EVENT_MAPINFO_CHANGE, this, this.onUpdateMapInfo);
             this._game.sceneObjectMgr.on(SceneObjectMgr.EVENT_UNIT_QIFU_TIME_CHANGE, this, this.onUpdateUnit);
             this._game.sceneObjectMgr.on(ShuiguojiMapInfo.EVENT_BATTLE_CHECK, this, this.onUpdateBattle);
-            this._game.network.addHanlder(Protocols.SMSG_OPERATION_FAILED, this, this.onOptHandler);
+            this._game.qifuMgr.on(QiFuMgr.QIFU_FLY, this, this.qifuFly);
 
             this._viewUI.ui_jc.onOpen(this._game);
             this._viewUI.img_set.y = -290;
@@ -422,7 +422,7 @@ module gameshuiguoji.page {
                     this._game.uiRoot.general.open(TongyongPageDef.PAGE_TONGYONG_SETTING)
                     break;
                 case this._viewUI.btn_qifu:
-                    this._game.uiRoot.general.open(TongyongPageDef.PAGE_TONGYONG_QIFU)
+                    this._game.uiRoot.general.open(DatingPageDef.PAGE_QIFU)
                     break;
                 case this._viewUI.btn_record://战绩
                     this._game.uiRoot.general.open(TongyongPageDef.PAGE_TONGYONG_RECORD, (page) => {
@@ -690,21 +690,14 @@ module gameshuiguoji.page {
 
         private _nameStrInfo: string[] = ["xs", "px", "gsy", "gg", "cs", "tdg"];
         private _qifuTypeImgUrl: string;
-        protected onOptHandler(optcode: number, msg: any) {
-            if (msg.type == Operation_Fields.OPRATE_GAME) {
-                switch (msg.reason) {
-                    case Operation_Fields.OPRATE_GAME_QIFU_SUCCESS_RESULT:
-                        let dataInfo = JSON.parse(msg.data);
-                        //打开祈福动画界面
-                        this._game.uiRoot.general.open(TongyongPageDef.PAGE_TONGYONG_QIFU_ANI, (page) => {
-                            page.dataSource = StringU.substitute(PathGameTongyong.ui_tongyong_qifu + "f_{0}1.png", this._nameStrInfo[dataInfo.qf_id - 1]);
-                        });
-                        //相对应的玩家精灵做出反应
-                        this._qifuTypeImgUrl = StringU.substitute(PathGameTongyong.ui_tongyong_qifu + "f_{0}2.png", this._nameStrInfo[dataInfo.qf_id - 1]);
-                        this.updatePlayerInfo(dataInfo.qifu_index);
-                        break;
-                }
-            }
+        private qifuFly(dataSource: any): void {
+            if (!dataSource) return;
+            let dataInfo = dataSource;
+            this._game.qifuMgr.showFlayAni(this._viewUI.img_head, this._viewUI, dataSource, (dataInfo) => {
+                //相对应的玩家精灵做出反应
+                this._qifuTypeImgUrl = StringU.substitute(PathGameTongyong.ui_tongyong_qifu + "f_{0}2.png", this._nameStrInfo[dataInfo.qf_id - 1]);
+                this.updatePlayerInfo(dataInfo.qifu_index);
+            },true);
         }
 
         //--------------------------------------
@@ -990,7 +983,7 @@ module gameshuiguoji.page {
             this._game.sceneObjectMgr.off(SceneObjectMgr.EVENT_MAPINFO_CHANGE, this, this.onUpdateMapInfo);
             this._game.sceneObjectMgr.off(SceneObjectMgr.EVENT_UNIT_QIFU_TIME_CHANGE, this, this.onUpdateUnit);
             this._game.sceneObjectMgr.off(ShuiguojiMapInfo.EVENT_BATTLE_CHECK, this, this.onUpdateBattle);
-            this._game.network.removeHanlder(Protocols.SMSG_OPERATION_FAILED, this, this.onOptHandler);
+            this._game.qifuMgr.off(QiFuMgr.QIFU_FLY, this, this.qifuFly);
 
             if (this._playerGoldClip) {
                 this._playerGoldClip.removeSelf();
