@@ -695,7 +695,7 @@ module gameshuiguoji.page {
             let dataInfo = dataSource;
             this._game.qifuMgr.showFlayAni(this._viewUI.img_head, this._viewUI, dataSource, (dataInfo) => {
                 //相对应的玩家精灵做出反应
-                this._qifuTypeImgUrl = StringU.substitute(PathGameTongyong.ui_tongyong_qifu + "f_{0}2.png", this._nameStrInfo[dataInfo.qf_id - 1]);
+                this._qifuTypeImgUrl = StringU.substitute(PathGameTongyong.ui_tongyong_touxiang + "f_{0}2.png", this._nameStrInfo[dataInfo.qf_id - 1]);
                 this.updatePlayerInfo(dataInfo.qifu_index);
             },true);
         }
