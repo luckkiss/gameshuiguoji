@@ -697,7 +697,7 @@ module gameshuiguoji.page {
                 //相对应的玩家精灵做出反应
                 this._qifuTypeImgUrl = StringU.substitute(PathGameTongyong.ui_tongyong_touxiang + "f_{0}2.png", this._nameStrInfo[dataInfo.qf_id - 1]);
                 this.updatePlayerInfo(dataInfo.qifu_index);
-            },true);
+            }, true);
         }
 
         //--------------------------------------
@@ -707,9 +707,7 @@ module gameshuiguoji.page {
             if (mainUnit) {
                 let headImg = mainUnit.GetHeadImg();
                 this._viewUI.txt_name.text = getMainPlayerName(mainUnit.GetName());
-                if (headImg) {
-                    this._viewUI.img_head.skin = PathGameTongyong.ui_tongyong_touxiang + "head_" + headImg + ".png";
-                }
+
                 let mainIdx = mainUnit.GetIndex();
                 this._viewUI.img_txk.visible = mainUnit.GetVipLevel() > 0;
                 if (this._viewUI.img_txk.visible) {
@@ -738,6 +736,9 @@ module gameshuiguoji.page {
                     }
                 } else {
                     this._viewUI.img_qifu.visible = false;
+                    if (headImg) {
+                        this._viewUI.img_head.skin = PathGameTongyong.ui_tongyong_touxiang + "head_" + headImg + ".png";
+                    }
                 }
             }
         }
