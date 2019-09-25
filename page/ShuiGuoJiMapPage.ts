@@ -720,7 +720,7 @@ module gameshuiguoji.page {
                     this.playTween(this._viewUI.qifu_type, qifu_index);
                 }
                 //时间戳变化 才加上祈福标志
-                if (mainUnit.GetQiFuEndTime() > this._game.sync.serverTimeBys) {
+                if (mainUnit.GetQFEndTime(mainUnit.GetQiFuType() - 1) > this._game.sync.serverTimeBys) {
                     if (qifu_index && mainIdx == qifu_index) {
                         Laya.timer.once(2500, this, () => {
                             this._viewUI.img_qifu.visible = true;
