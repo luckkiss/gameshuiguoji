@@ -84,7 +84,7 @@ module gameshuiguoji.page {
                 PathGameTongyong.atlas_game_ui_tongyong + "touxiang.atlas",
                 Path_game_shuiguoji.atlas_game_ui + "shuiguoji.atlas",
                 PathGameTongyong.atlas_game_ui_tongyong + 'dating.atlas',
-                PathGameTongyong.atlas_game_ui_tongyong + "qifu.atlas",
+                DatingPath.atlas_dating_ui + "qifu.atlas",
                 PathGameTongyong.atlas_game_ui_tongyong + "general/effect/bigwin.atlas",
                 Path_game_shuiguoji.atlas_game_ui + "shuiguoji/effect/jinbi0.atlas",
                 Path_game_shuiguoji.atlas_game_ui + "shuiguoji/effect/jinbi1.atlas",
