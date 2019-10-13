@@ -286,7 +286,10 @@ module gameshuiguoji.page {
             this._viewUI.txt_name.text = getMainPlayerName(mainPlayerInfo.nickname);
             this._viewUI.img_head.skin = TongyongUtil.getHeadUrl(mainPlayer.playerInfo.headimg, 2);
             this._viewUI.img_qifu.visible = TongyongUtil.getIsHaveQiFu(mainPlayer, this._game.sync.serverTimeBys);
-            this._viewUI.img_txk.skin = TongyongUtil.getTouXiangKuangUrl(mainPlayer.playerInfo.headKuang, 2);
+            this._viewUI.img_txk.skin = TongyongUtil.getTouXiangKuangUrl(mainPlayer.playerInfo.headKuang);
+            //vip标识
+            this._viewUI.img_vip.visible = mainPlayer.playerInfo.vip_level > 0;
+            this._viewUI.img_vip.skin = TongyongUtil.getVipUrl(mainPlayer.playerInfo.vip_level);
         }
 
         /**按钮点击事件 带缓动 */
@@ -706,7 +709,10 @@ module gameshuiguoji.page {
                 this._viewUI.txt_name.text = getMainPlayerName(mainUnit.GetName());
 
                 let mainIdx = mainUnit.GetIndex();
-                this._viewUI.img_txk.skin = TongyongUtil.getTouXiangKuangUrl(mainUnit.GetHeadKuangImg(), 2);
+                this._viewUI.img_txk.skin = TongyongUtil.getTouXiangKuangUrl(mainUnit.GetHeadKuangImg());
+                //vip标识
+                this._viewUI.img_vip.visible = mainUnit.GetVipLevel() > 0;
+                this._viewUI.img_vip.skin = TongyongUtil.getVipUrl(mainUnit.GetVipLevel());
                 //祈福成功 头像上就有动画
                 if (qifu_index && mainIdx == qifu_index) {
                     this._viewUI.qifu_type.visible = true;
