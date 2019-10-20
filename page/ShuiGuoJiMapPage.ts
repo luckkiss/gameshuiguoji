@@ -729,10 +729,11 @@ module gameshuiguoji.page {
                             this._viewUI.img_qifu.visible = true;
                             this._viewUI.img_head.skin = TongyongUtil.getHeadUrl(mainUnit.GetHeadImg(), 2);
                         })
-                    } else {
-                        this._viewUI.img_qifu.visible = true;
-                        this._viewUI.img_head.skin = TongyongUtil.getHeadUrl(mainUnit.GetHeadImg(), 2);
-                    }
+                    } 
+                    // else {
+                    //     this._viewUI.img_qifu.visible = true;
+                    //     this._viewUI.img_head.skin = TongyongUtil.getHeadUrl(mainUnit.GetHeadImg(), 2);
+                    // }
                 } else {
                     this._viewUI.img_qifu.visible = false;
                     this._viewUI.img_head.skin = TongyongUtil.getHeadUrl(mainUnit.GetHeadImg(), 2);
