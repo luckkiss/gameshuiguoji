@@ -199,6 +199,9 @@ module gameshuiguoji.page {
         // 页面打开时执行函数
         protected onOpen(): void {
             super.onOpen();
+             //api充值不显示
+            this._viewUI.btn_chongzhi.visible = !WebConfig.enterGameLocked;
+
             this._sgjStory = this._game.sceneObjectMgr.story as ShuiguojiStory;
             if (this._sgjStory) {
                 this.onUpdateMapInfo();
@@ -227,7 +230,7 @@ module gameshuiguoji.page {
             this._viewUI.btn_right.on(LEvent.CLICK, this, this.onBtnClickWithTween);
             this._viewUI.btn_big.on(LEvent.CLICK, this, this.onBtnClickWithTween);
             this._viewUI.btn_small.on(LEvent.CLICK, this, this.onBtnClickWithTween);
-            this._viewUI.btn_chong.on(LEvent.CLICK, this, this.onBtnClickWithTween);
+            this._viewUI.btn_chongzhi.on(LEvent.CLICK, this, this.onBtnClickWithTween);
             this._viewUI.btn_start.on(LEvent.CLICK, this, this.onBtnClickWithTween);
             this._viewUI.btn_cancel_auto.on(LEvent.CLICK, this, this.onBtnClickWithTween);
             this._viewUI.btn_qifu.on(LEvent.CLICK, this, this.onBtnClickWithTween);
@@ -272,7 +275,7 @@ module gameshuiguoji.page {
         update(diff: number) {
             super.update(diff);
             if (!this._curDiffTime || this._curDiffTime < 0) {
-                this._viewUI.btn_chong.ani1.play(0, false);
+                this._viewUI.btn_chongzhi.ani1.play(0, false);
                 this._curDiffTime = TongyongPageDef.CZ_PLAY_DIFF_TIME;
             } else {
                 this._curDiffTime -= diff;
@@ -474,7 +477,7 @@ module gameshuiguoji.page {
                 case this._viewUI.btn_cancel_bet://取消下注
                     this.ResetBet();
                     break;
-                case this._viewUI.btn_chong://充值
+                case this._viewUI.btn_chongzhi://充值
                     this._game.uiRoot.general.open(DatingPageDef.PAGE_CHONGZHI);
                     break;
                 case this._testBtn://测试
@@ -962,7 +965,7 @@ module gameshuiguoji.page {
                 this._viewUI.btn_right.off(LEvent.CLICK, this, this.onBtnClickWithTween);
                 this._viewUI.btn_big.off(LEvent.CLICK, this, this.onBtnClickWithTween);
                 this._viewUI.btn_small.off(LEvent.CLICK, this, this.onBtnClickWithTween);
-                this._viewUI.btn_chong.off(LEvent.CLICK, this, this.onBtnClickWithTween);
+                this._viewUI.btn_chongzhi.off(LEvent.CLICK, this, this.onBtnClickWithTween);
 
                 this._viewUI.btn_start.off(LEvent.CLICK, this, this.onBtnClickWithTween);
                 this._viewUI.btn_cancel_auto.off(LEvent.CLICK, this, this.onBtnClickWithTween);
