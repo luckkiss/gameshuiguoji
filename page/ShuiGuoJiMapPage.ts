@@ -37,14 +37,13 @@ module gameshuiguoji.page {
             3, 10, 20, 50
         ];
 
-        private _viewUI: ui.nqp.game_ui.shuiguoji.ShuiGuoJiUI;
+        private _viewUI: ui.ajqp.game_ui.shuiguoji.ShuiGuoJiUI;
         private _sgjStory: ShuiguojiStory;
         private _sgjMapInfo: ShuiguojiMapInfo;
 
         private _curChip: number;//当前选择筹码
         private _curChipY: number;//当前选择筹码y轴位置
-        private _chipList: Array<Button> = [];//筹码UI集合
-        private _chipGuangList: Array<LImage> = [];//筹码光效UI集合
+        private _chipUIList: Array<ui.ajqp.game_ui.tongyong.effect.Effect_cmUI> = [];//筹码UI集合
 
         private _playerGold: number = 0;
         private _playerGoldClip: ShuiguojiClip;//玩家金币
@@ -79,13 +78,15 @@ module gameshuiguoji.page {
             this._isNeedDuang = false;
             this._delta = 0;
             this._asset = [
+                DatingPath.atlas_dating_ui + "qifu.atlas",
                 PathGameTongyong.atlas_game_ui_tongyong + "hud.atlas",
                 PathGameTongyong.atlas_game_ui_tongyong + "general.atlas",
                 PathGameTongyong.atlas_game_ui_tongyong + "touxiang.atlas",
                 Path_game_shuiguoji.atlas_game_ui + "shuiguoji.atlas",
                 PathGameTongyong.atlas_game_ui_tongyong + 'dating.atlas',
-                DatingPath.atlas_dating_ui + "qifu.atlas",
+                PathGameTongyong.atlas_game_ui_tongyong + "qifu.atlas",
                 PathGameTongyong.atlas_game_ui_tongyong + "general/effect/bigwin.atlas",
+                PathGameTongyong.atlas_game_ui_tongyong_general + "anniu.atlas",
                 Path_game_shuiguoji.atlas_game_ui + "shuiguoji/effect/jinbi0.atlas",
                 Path_game_shuiguoji.atlas_game_ui + "shuiguoji/effect/jinbi1.atlas",
                 Path_game_shuiguoji.atlas_game_ui + "shuiguoji/effect/zhongjiang.atlas",
@@ -101,11 +102,11 @@ module gameshuiguoji.page {
             this._effPage = new ShuiGuoJiEffectPage(this._game, this._viewUI.box_main, this._viewUI);
 
             for (let i: number = 0; i < ROOM_CHIP_CONFIG.length; i++) {
-                this._chipList.push(this._viewUI["btn_chip" + i]);
-                this._chipList[i].label = ROOM_CHIP_CONFIG[i] + "";
-                this._chipGuangList.push(this._viewUI["guang" + i]);
+                this._chipUIList.push(this._viewUI["btn_chip" + i]);
+                this._chipUIList[i].btn_num.label = ROOM_CHIP_CONFIG[i] + "";
+                this._chipUIList[i].btn_num.skin = StringU.substitute(PathGameTongyong.ui_tongyong_general + "tu_cm{0}.png", i);
                 if (i == 0) {
-                    this._curChipY = this._chipList[i].y - 10;
+                    this._curChipY = this._chipUIList[i].y - 10;
                 }
             }
 
@@ -123,7 +124,7 @@ module gameshuiguoji.page {
             this._allBetNum = [];
             this._allBetAni = [];
             for (let i: number = 0; i < FRIUT_ALL_NUM; i++) {
-                let uibet: ui.nqp.game_ui.shuiguoji.component.BeiShuUI = this._viewUI["ui_bet_" + (i + 1)];
+                let uibet: ui.ajqp.game_ui.shuiguoji.component.BeiShuUI = this._viewUI["ui_bet_" + (i + 1)];
                 this._allBetClipBg[i] = new ShuiguojiClip(ShuiguojiClip.SGJ_BET_SCORE);
                 uibet.clip_bet.parent.addChild(this._allBetClipBg[i]);
                 this._allBetClipBg[i].setText("8888", true);
@@ -192,14 +193,13 @@ module gameshuiguoji.page {
                 this._testBtn.stateNum = 1;
                 // this._viewUI.getChildAt(0).addChild(this._testBtn);
             }
-            this._viewUI.btn_xl.left = this._game.isFullScreen ? 30 : 10;
-            this._viewUI.img_set.left = this._game.isFullScreen ? 25 : 10;
+            this._viewUI.box_left.left = this._game.isFullScreen ? 35 : 15;
         }
 
         // 页面打开时执行函数
         protected onOpen(): void {
             super.onOpen();
-             //api充值不显示
+            //api充值不显示
             this._viewUI.btn_chongzhi.visible = !WebConfig.enterGameLocked;
 
             this._sgjStory = this._game.sceneObjectMgr.story as ShuiguojiStory;
@@ -208,8 +208,8 @@ module gameshuiguoji.page {
             }
             if (this._testBtn) this._testBtn.on(LEvent.CLICK, this, this.onBtnClickWithTween);
 
-            for (let i: number = 0; i < this._chipList.length; i++) {
-                this._chipList[i] && this._chipList[i].on(LEvent.CLICK, this, this.onSelectChip, [i]);
+            for (let i: number = 0; i < this._chipUIList.length; i++) {
+                this._chipUIList[i] && this._chipUIList[i].on(LEvent.CLICK, this, this.onSelectChip, [i]);
             }
 
             for (let i: number = 0; i < this._allBetBtn.length; i++) {
@@ -219,7 +219,7 @@ module gameshuiguoji.page {
                 this._allBetAni[i] && this._allBetAni[i].on(LEvent.COMPLETE, this, this.onBetAniComplete, [i]);
             }
 
-            this._viewUI.btn_xl.on(LEvent.CLICK, this, this.onBtnClickWithTween);
+            this._viewUI.btn_spread.on(LEvent.CLICK, this, this.onBtnClickWithTween);
             this._viewUI.btn_fanhui.on(LEvent.CLICK, this, this.onBtnClickWithTween);
             this._viewUI.btn_set.on(LEvent.CLICK, this, this.onBtnClickWithTween);
             this._viewUI.btn_rule.on(LEvent.CLICK, this, this.onBtnClickWithTween);
@@ -248,9 +248,8 @@ module gameshuiguoji.page {
             this._game.qifuMgr.on(QiFuMgr.QIFU_FLY, this, this.qifuFly);
 
             this._viewUI.ui_jc.onOpen(this._game);
-            this._viewUI.img_set.y = -290;
-            this._viewUI.img_set.zOrder = 99;
-            this._viewUI.img_set.visible = false;
+            this._viewUI.box_menu.zOrder = 99;
+            this._viewUI.box_menu.visible = false;
             this._curChip = 0;
             this.onSelectChip(0);
             this.ResetBet();
@@ -304,24 +303,22 @@ module gameshuiguoji.page {
         }
 
         protected onMouseClick(e: LEvent) {
-            if (e.target != this._viewUI.btn_xl) {
-                this.showMenu(false);
+            if (e.target != this._viewUI.btn_spread) {
+                this.menuTween(false);
             }
         }
 
-        showMenu(isShow: boolean) {
-            if (isShow) {
-                this._viewUI.img_set.visible = true;
-                this._viewUI.btn_xl.visible = false;
-                this._viewUI.img_set.y = -this._viewUI.img_set.height;
-                Laya.Tween.to(this._viewUI.img_set, { y: 10 }, 300, Laya.Ease.circIn)
+        //菜单栏
+        private menuTween(isOpen: boolean) {
+            if (isOpen) {
+                this._viewUI.box_menu.visible = true;
+                this._viewUI.box_menu.scale(0.2, 0.2);
+                this._viewUI.box_menu.alpha = 0;
+                Laya.Tween.to(this._viewUI.box_menu, { scaleX: 1, scaleY: 1, alpha: 1 }, 300, Laya.Ease.backInOut);
             } else {
-                if (this._viewUI.img_set.y >= 0) {
-                    Laya.Tween.to(this._viewUI.img_set, { y: -this._viewUI.img_set.height }, 300, Laya.Ease.circIn, Handler.create(this, () => {
-                        this._viewUI.btn_xl.visible = true;
-                        this._viewUI.img_set.visible = false;
-                    }));
-                }
+                Laya.Tween.to(this._viewUI.box_menu, { scaleX: 0.2, scaleY: 0.2, alpha: 0 }, 300, Laya.Ease.backInOut, Handler.create(this, () => {
+                    this._viewUI.box_menu.visible = false;
+                }));
             }
         }
 
@@ -403,8 +400,8 @@ module gameshuiguoji.page {
             this._clickTime = Laya.timer.currTimer;
 
             switch (target) {
-                case this._viewUI.btn_xl://菜单
-                    this.showMenu(true);
+                case this._viewUI.btn_spread://菜单
+                    this.menuTween(!this._viewUI.box_menu.visible);
                     break;
                 case this._viewUI.btn_fanhui://退出
                     let isPlay: boolean = this._effPage && this._effPage.isPlaying;
@@ -601,9 +598,14 @@ module gameshuiguoji.page {
                 return;
             }
             this._curChip = ROOM_CHIP_CONFIG[index];
-            for (let i: number = 0; i < this._chipList.length; i++) {
-                this._chipGuangList[i].visible = i == index;
-                this._chipList[i].y = i == index ? this._curChipY - 10 : this._curChipY;
+            for (let i: number = 0; i < this._chipUIList.length; i++) {
+                this._chipUIList[i].y = i == index ? this._curChipY - 10 : this._curChipY;
+                this._chipUIList[i].img0.visible = this._chipUIList[i].img1.visible = i == index;
+                if (i == index) {
+                    this._chipUIList[i].ani1.play(0, true);
+                } else {
+                    this._chipUIList[i].ani1.gotoAndStop(0);
+                }
             }
         }
 
@@ -729,11 +731,7 @@ module gameshuiguoji.page {
                             this._viewUI.img_qifu.visible = true;
                             this._viewUI.img_head.skin = TongyongUtil.getHeadUrl(mainUnit.GetHeadImg(), 2);
                         })
-                    } 
-                    // else {
-                    //     this._viewUI.img_qifu.visible = true;
-                    //     this._viewUI.img_head.skin = TongyongUtil.getHeadUrl(mainUnit.GetHeadImg(), 2);
-                    // }
+                    }
                 } else {
                     this._viewUI.img_qifu.visible = false;
                     this._viewUI.img_head.skin = TongyongUtil.getHeadUrl(mainUnit.GetHeadImg(), 2);
@@ -759,8 +757,8 @@ module gameshuiguoji.page {
                 this._playerGold = EnumToString.getPointBackNum(this._playerGold, 2);
                 this._playerGoldClip && this._playerGoldClip.setText(this._playerGold, true);
 
-                for (let i: number = 0; i < this._chipList.length; i++) {
-                    this._chipList[i].disabled = ROOM_CHIP_CONFIG[i] > this._playerGold;
+                for (let i: number = 0; i < this._chipUIList.length; i++) {
+                    this._chipUIList[i].disabled = ROOM_CHIP_CONFIG[i] > this._playerGold;
                 }
             }
         }
@@ -936,16 +934,16 @@ module gameshuiguoji.page {
                 }
                 this._viewUI.ui_jc && this._viewUI.ui_jc.destroy();
 
-                this._viewUI.btn_xl.off(LEvent.CLICK, this, this.onBtnClickWithTween);
+                this._viewUI.btn_spread.off(LEvent.CLICK, this, this.onBtnClickWithTween);
                 this._viewUI.btn_fanhui.off(LEvent.CLICK, this, this.onBtnClickWithTween);
                 this._viewUI.btn_set.off(LEvent.CLICK, this, this.onBtnClickWithTween);
                 this._viewUI.btn_rule.off(LEvent.CLICK, this, this.onBtnClickWithTween);
                 this._viewUI.btn_record.off(LEvent.CLICK, this, this.onBtnClickWithTween);
 
-                for (let i: number = 0; i < this._chipList.length; i++) {
-                    this._chipList[i] && this._chipList[i].off(LEvent.CLICK, this, this.onSelectChip);
+                for (let i: number = 0; i < this._chipUIList.length; i++) {
+                    this._chipUIList[i] && this._chipUIList[i].off(LEvent.CLICK, this, this.onSelectChip);
                 }
-                this._chipList.length = 0;
+                this._chipUIList.length = 0;
 
                 for (let i: number = 0; i < this._allBetBtn.length; i++) {
                     this._allBetBtn[i] && this._allBetBtn[i].off(LEvent.CLICK, this, this.onBtnBetClickWithTween);
@@ -1029,13 +1027,6 @@ module gameshuiguoji.page {
                 this._allBetClipBg.length = 0;
             }
 
-
-            for (let i: number = 0; i < this._chipList.length; i++) {
-                this._chipGuangList[i].disabled = false
-                this._chipList[i].disabled = this._chipGuangList[i].disabled
-            }
-
-
             if (this._effPage) this._effPage.clear();
             this._game.stopAllSound();
             this._game.stopMusic();
@@ -1055,9 +1046,8 @@ module gameshuiguoji.page {
                 this._effPage = null;
             }
 
-            if (this._chipList) {
-                this._chipList.length = 0;
-                this._chipGuangList.length = 0;
+            if (this._chipUIList) {
+                this._chipUIList.length = 0;
             }
             if (this._playerGoldClip) {
                 this._playerGoldClip.removeSelf();

@@ -3,7 +3,7 @@
 */
 module gameshuiguoji.page {
 	export class ShuiGuoJiRulePage extends game.gui.base.Page {
-		private _viewUI: ui.nqp.game_ui.shuiguoji.ShuiGuoJi_GuiZeUI;
+		private _viewUI: ui.ajqp.game_ui.shuiguoji.ShuiGuoJi_GuiZeUI;
 		constructor(v: Game, onOpenFunc?: Function, onCloseFunc?: Function) {
 			super(v, onOpenFunc, onCloseFunc);
 			this._isNeedBlack = true;

@@ -3,7 +3,7 @@
 */
 module gameshuiguoji.page {
 	export class ShuiGuoJiTipEffectPage extends game.gui.base.Page {
-		private _viewUI: ui.nqp.game_ui.shuiguoji.DaSanYuanUI;
+		private _viewUI: ui.ajqp.game_ui.shuiguoji.DaSanYuanUI;
 
 		constructor(v: Game, onOpenFunc?: Function, onCloseFunc?: Function) {
 			super(v, onOpenFunc, onCloseFunc);
