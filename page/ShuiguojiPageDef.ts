@@ -24,23 +24,24 @@ module gameshuiguoji.page {
 
 			this["__needLoadAsset"] = [
 				DatingPath.atlas_dating_ui + "qifu.atlas",
+				Path_game_shuiguoji.atlas_game_ui + "shuiguoji.atlas",
 				PathGameTongyong.atlas_game_ui_tongyong + "hud.atlas",
 				PathGameTongyong.atlas_game_ui_tongyong + "pai.atlas",
 				PathGameTongyong.atlas_game_ui_tongyong + "logo.atlas",
 				PathGameTongyong.atlas_game_ui_tongyong + "dating.atlas",
 				PathGameTongyong.atlas_game_ui_tongyong + "general.atlas",
 				PathGameTongyong.atlas_game_ui_tongyong + "touxiang.atlas",
-				Path_game_shuiguoji.atlas_game_ui + "shuiguoji.atlas",
 				PathGameTongyong.atlas_game_ui_tongyong + "qifu.atlas",
 				PathGameTongyong.atlas_game_ui_tongyong + "general/effect/suiji.atlas",
 				PathGameTongyong.atlas_game_ui_tongyong + "general/effect/fapai_1.atlas",
 				PathGameTongyong.atlas_game_ui_tongyong + "general/effect/xipai.atlas",
 				PathGameTongyong.atlas_game_ui_tongyong + "general/effect/bigwin.atlas",
+				PathGameTongyong.atlas_game_ui_tongyong_general + "anniu.atlas",
 				Path_game_shuiguoji.atlas_game_ui + "shuiguoji/effect/jinbi0.atlas",
 				Path_game_shuiguoji.atlas_game_ui + "shuiguoji/effect/jinbi1.atlas",
 				Path_game_shuiguoji.atlas_game_ui + "shuiguoji/effect/zhongjiang.atlas",
-				Path.custom_atlas_scene + 'chip.atlas',
 
+				Path.custom_atlas_scene + 'chip.atlas',
 				Path.map + 'pz_shuiguoji.png',
 				Path.map_far + 'bg_shuiguoji.jpg'
 			]
@@ -89,7 +90,7 @@ module gameshuiguoji.page {
 					Path_game_shuiguoji.music_shuiguoji + "Win.mp3",
 				]);
 			}
-			
+
 			this["__enterMapLv"] = Web_operation_fields.GAME_ROOM_CONFIG_SHUIGUOJI_1;
 		}
 	}

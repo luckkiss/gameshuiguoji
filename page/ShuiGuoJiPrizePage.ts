@@ -8,7 +8,7 @@ module gameshuiguoji.page {
 		constructor(v: Game, onOpenFunc?: Function, onCloseFunc?: Function) {
 			super(v, onOpenFunc, onCloseFunc);
 			this._isNeedBlack = true;
-			this._isClickBlack = false;
+			this._isClickBlack = true;
 			this._asset = [
 				PathGameTongyong.atlas_game_ui_tongyong + "hud.atlas",
 				PathGameTongyong.atlas_game_ui_tongyong + "general.atlas",
