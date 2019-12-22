@@ -193,7 +193,6 @@ module gameshuiguoji.page {
                 this._testBtn.stateNum = 1;
                 // this._viewUI.getChildAt(0).addChild(this._testBtn);
             }
-            this._viewUI.box_left.left = this._game.isFullScreen ? 35 : 15;
         }
 
         // 页面打开时执行函数
@@ -267,7 +266,20 @@ module gameshuiguoji.page {
             this.setCaiNumber(0);
 
             this._game.playMusic(Path_game_shuiguoji.music_shuiguoji + "sgj_BGM.mp3");
+        }
 
+        protected layout(): void {
+            super.layout();
+            if (this._viewUI) {
+                //全面屏
+                if (this._game.isFullScreen) {
+                    this._viewUI.box_top_left.left = 14 + 56;
+                    this._viewUI.box_top_right.right = 28 + 56;
+                } else {
+                    this._viewUI.box_top_left.left = 14;
+                    this._viewUI.box_top_right.right = 28;
+                }
+            }
         }
 
         private _curDiffTime: number;
