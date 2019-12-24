@@ -736,16 +736,19 @@ module gameshuiguoji.page {
                     this._viewUI.qifu_type.skin = this._qifuTypeImgUrl;
                     this.playTween(this._viewUI.qifu_type, qifu_index);
                 }
-                //时间戳变化 才加上祈福标志
-                if (TongyongUtil.getIsHaveQiFu(mainUnit, this._game.sync.serverTimeBys)) {
-                    if (qifu_index && mainIdx == qifu_index) {
-                        Laya.timer.once(2500, this, () => {
-                            this._viewUI.img_qifu.visible = true;
-                            this._viewUI.img_head.skin = TongyongUtil.getHeadUrl(mainUnit.GetHeadImg(), 2);
-                        })
-                    }
-                } else {
-                    this._viewUI.img_qifu.visible = false;
+                //祈福成功 头像上就有动画
+                if (qifu_index && mainIdx == qifu_index) {
+                    this._viewUI.qifu_type.visible = true;
+                    this._viewUI.qifu_type.skin = this._qifuTypeImgUrl;
+                    //时间戳变化 才加上祈福标志
+                    this.playTween(this._viewUI.qifu_type, qifu_index);
+                    Laya.timer.once(2500, this, () => {
+                        this._viewUI.img_qifu.visible = true;
+                        this._viewUI.img_head.skin = TongyongUtil.getHeadUrl(mainUnit.GetHeadImg(), 2);
+                    })
+                }
+                else {
+                    this._viewUI.img_qifu.visible = TongyongUtil.getIsHaveQiFu(mainUnit, this._game.sync.serverTimeBys);
                     this._viewUI.img_head.skin = TongyongUtil.getHeadUrl(mainUnit.GetHeadImg(), 2);
                 }
             }
