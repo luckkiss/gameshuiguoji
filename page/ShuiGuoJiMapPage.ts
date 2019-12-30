@@ -515,7 +515,7 @@ module gameshuiguoji.page {
             this._playerGold = 0;
             let mainUnit = this._game.sceneObjectMgr.mainUnit;
             if (mainUnit) {
-                this._playerGold = mainUnit.GetMoney();
+                this._playerGold = TongyongUtil.getMoneyChange(mainUnit.GetMoney());
             }
             let betMoney = this.callBetMoney();
             if (betMoney <= 0) {
@@ -760,7 +760,7 @@ module gameshuiguoji.page {
             this._playerGold = 0;
             let mainUnit = this._game.sceneObjectMgr.mainUnit;
             if (mainUnit) {
-                this._playerGold = mainUnit.GetMoney();
+                this._playerGold = TongyongUtil.getMoneyChange(mainUnit.GetMoney());
                 if (isCalBet) {
                     let betMoney = this.callBetMoney();
                     this._playerGold -= betMoney;

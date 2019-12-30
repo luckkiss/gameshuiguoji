@@ -87,7 +87,8 @@ module gameshuiguoji.page {
 
 		private updateJackpot(): void {
 			if (this._sgjMapInfo) {
-				this._jackpotClip.setText(EnumToString.getPointBackNum(this._sgjMapInfo.GetJackpot() / 1000 + this._jacketMoney, 2), true);
+				let jackPotMoney = TongyongUtil.getMoneyChange(this._sgjMapInfo.GetJackpot()) / 10
+				this._jackpotClip.setText(EnumToString.getPointBackNum(jackPotMoney + this._jacketMoney, 2), true);
 			}
 		}
 
