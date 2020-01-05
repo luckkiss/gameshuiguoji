@@ -78,7 +78,6 @@ module gameshuiguoji.page {
             this._isNeedDuang = false;
             this._delta = 0;
             this._asset = [
-                DatingPath.atlas_dating_ui + "qifu.atlas",
                 Path_game_shuiguoji.atlas_game_ui + "shuiguoji.atlas",
                 PathGameTongyong.atlas_game_ui_tongyong + "hud.atlas",
                 PathGameTongyong.atlas_game_ui_tongyong + "general.atlas",
